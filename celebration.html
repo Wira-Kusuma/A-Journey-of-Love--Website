@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Celebration</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    /* Animated Flower */
+    .flower {
+      position: absolute;
+      bottom: 0;
+      width: 100px;
+      height: 100px;
+      background: url('https://img.freepik.com/premium-vector/flower-pattern_913978-1.jpg?semt=ais_hybrid') no-repeat center center;
+      background-size: contain;
+      animation: growFlower 5s forwards;
+      opacity: 0;
+    }
+    @keyframes growFlower {
+      0% {
+        transform: scale(0.1);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(10);
+        opacity: 1;
+      }
+    }
+    /* Canvas for Fireworks */
+    #fireworks-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks-canvas"></canvas>
+  <div class="flower"></div>
+  <!-- Include Fireworks JS Library from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/index.umd.min.js"></script>
+  <script>
+    // Initialize fireworks using the Fireworks.js library
+    const container = document.getElementById('fireworks-canvas');
+    const fireworks = new Fireworks.default(container, {
+      hue: 120,
+      delay: { min: 15, max: 30 },
+      rocketsPoint: 50,
+      speed: 2,
+      acceleration: 1.05,
+      friction: 0.98,
+      gravity: 1.5,
+      particles: 50,
+      trace: 3,
+      explosion: 5,
+      boundaries: {
+        top: 50,
+        bottom: container.clientHeight,
+        left: 50,
+        right: container.clientWidth
+      },
+      sound: {
+        enable: false
+      }
+    });
+    fireworks.start();
+  </script>
+</body>
+</html>
