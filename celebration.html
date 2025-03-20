@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Celebration</title>
   <style>
     html, body {
@@ -10,74 +10,101 @@
       padding: 0;
       overflow: hidden;
       height: 100%;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
+      background: #0a0a0a;
+      background-image: url("https://img.freepik.com/premium-vector/flower-pattern_913978-1.jpg?semt=ais_hybrid");
+      position: relative; 
     }
-    /* Animated Flower */
-    .flower {
-      position: absolute;
-      bottom: 0;
-      width: 100px;
-      height: 100px;
-      background: url('https://img.freepik.com/premium-vector/flower-pattern_913978-1.jpg?semt=ais_hybrid') no-repeat center center;
-      background-size: contain;
-      animation: growFlower 5s forwards;
-      opacity: 0;
-    }
-    @keyframes growFlower {
-      0% {
-        transform: scale(0.1);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(10);
-        opacity: 1;
-      }
-    }
-    /* Canvas for Fireworks */
-    #fireworks-canvas {
+    /* Container for falling flowers */
+    #flower-container {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+    /* Style for each falling flower */
+    .falling-flower {
+      position: absolute;
+      top: -100px;
+      width: 50px;
+      height: 50px;
+      background: url('https://png.pngtree.com/png-clipart/20240320/original/pngtree-cute-pink-flower-illustration-png-image_14638358.png') no-repeat center center;
+      background-size: contain;
+      opacity: 0.8;
+      animation: fall linear infinite, glow 2s ease-in-out infinite alternate;
+    }
+    /* Falling animation */
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+    /* Glowing effect animation */
+    @keyframes glow {
+      0% {
+        filter: drop-shadow(0 0 5px #ff69b4);
+      }
+      100% {
+        filter: drop-shadow(0 0 20px #ff69b4);
+      }
+    }
+    /* Center growing flower (optional) */
+    .center-flower {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      background: url('https://png.pngtree.com/png-clipart/20240321/original/pngtree-illustration-of-a-pink-flower-png-image_14644920.png') no-repeat center center;
+      background-size: contain;
+      animation: growFlower 5s forwards;
+      opacity: 0;
+      z-index: 2;
+    }
+    @keyframes growFlower {
+      0% {
+        transform: translateX(-50%) scale(0.1);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(-50%) scale(3);
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-  <canvas id="fireworks-canvas"></canvas>
-  <div class="flower"></div>
-  <!-- Include Fireworks JS Library from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/index.umd.min.js"></script>
+  <div id="flower-container"></div>
+  <div class="center-flower"></div>
+  
   <script>
-    // Initialize fireworks using the Fireworks.js library
-    const container = document.getElementById('fireworks-canvas');
-    const fireworks = new Fireworks.default(container, {
-      hue: 120,
-      delay: { min: 15, max: 30 },
-      rocketsPoint: 50,
-      speed: 2,
-      acceleration: 1.05,
-      friction: 0.98,
-      gravity: 1.5,
-      particles: 50,
-      trace: 3,
-      explosion: 5,
-      boundaries: {
-        top: 50,
-        bottom: container.clientHeight,
-        left: 50,
-        right: container.clientWidth
-      },
-      sound: {
-        enable: false
-      }
-    });
-    fireworks.start();
+    // Function to generate a random number between min and max
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    
+    const container = document.getElementById('flower-container');
+    const flowerCount = 30; // Adjust number of falling flowers here
+    
+    for (let i = 0; i < flowerCount; i++) {
+      const flower = document.createElement('div');
+      flower.classList.add('falling-flower');
+      
+      // Randomize starting horizontal position, animation duration, and delay
+      flower.style.left = random(0, window.innerWidth) + 'px';
+      const fallDuration = random(8, 15);
+      flower.style.animationDuration = fallDuration + 's, ' + random(2, 4) + 's';
+      flower.style.animationDelay = random(0, 5) + 's, ' + random(0, 5) + 's';
+      
+      container.appendChild(flower);
+    }
   </script>
 </body>
 </html>
