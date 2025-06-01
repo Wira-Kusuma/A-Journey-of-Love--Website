@@ -14,7 +14,7 @@
 <body>
 
   <!-- Landing Section -->
-  <section class="landing">
+  <section class="landing" id="landing">
     <h1>A Journey of Love</h1>
     <div class="heart-icon">&#10084;</div>
     <p class="lead">Every moment with you is a magical chapter in our story.</p>
@@ -52,10 +52,10 @@
 
   <!-- Proposal Section -->
   <section class="proposal">
-    <div class="container" id="proposal">
+    <div class="container">
       <h2 >Will You Marry Me?</h2>
-      <p id="remove">Every beat of my heart whispers your name. I want to continue this magical journey together, forever.</p>
-      <button class="proposal-btn" onclick="redirectToCelebration()" id="removes">Yes, Forever!</button>
+      <p>Every beat of my heart whispers your name. I want to continue this magical journey together, forever.</p>
+      <button class="proposal-btn" onclick="redirectToCelebration()">Yes, Forever!</button>
     </div>
   </section>
 
@@ -67,15 +67,14 @@
   <!-- JavaScript for interactive elements -->
   <script>
     function redirectToCelebration() {
-      let proposal = document.getElementById("proposal");
-      document.getElementById("remove").style.display="none";
-      document.getElementById("removes").style.display="none";
-      proposal.classList="scale";
+      document.getElementById("landing").scrollIntoView({
+      behavior: "smooth" // smooth animation
+       });
 
       // Navigate to the celebration page
       setTimeout(() => {
         window.location.href = "part/celebration.html";
-      }, 500);
+      }, 700);
     }
   </script>
   <!-- Bootstrap JS Bundle -->
