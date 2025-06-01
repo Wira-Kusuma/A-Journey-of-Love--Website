@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Celebration</title>
+  <!-- favicon -->
+  <link rel="shortcut icon" href="img/love-letter.png" type="image/x-icon">
+  <!-- eksternal css -->
+   <link rel="stylesheet" href="style.css">
+  <style>
+    
+  </style>
+</head>
+<body>
+  <div id="flower-container"></div>
+  <div class="center-flower"></div>
+  
+  <script>
+    // Function to generate a random number between min and max
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    
+    const container = document.getElementById('flower-container');
+    const flowerCount = 30; // Adjust number of falling flowers here
+    
+    for (let i = 0; i < flowerCount; i++) {
+      const flower = document.createElement('div');
+      flower.classList.add('falling-flower');
+      
+      // Randomize starting horizontal position, animation duration, and delay
+      flower.style.left = random(0, window.innerWidth) + 'px';
+      const fallDuration = random(8, 15);
+      flower.style.animationDuration = fallDuration + 's, ' + random(2, 4) + 's';
+      flower.style.animationDelay = random(0, 5) + 's, ' + random(0, 5) + 's';
+      
+      container.appendChild(flower);
+    }
+  </script>
+</body>
+</html>
